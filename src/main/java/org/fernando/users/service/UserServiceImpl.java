@@ -3,6 +3,7 @@ package org.fernando.users.service;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.fernando.users.exception.ModelNotFoundException;
 import org.fernando.users.model.User;
 import org.fernando.users.repo.IUserRepo;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public User readById(Integer id) throws Exception {
-        return userRepo.findById(id).orElse(new User());
+        return userRepo.findById(id).orElseThrow(()-> new ModelNotFoundException("Id Not Found " +id));
     }
 
     @Override
